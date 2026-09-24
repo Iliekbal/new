@@ -6,6 +6,25 @@ Copy everything below the line and give it to another AI.
 
 You are an expert Roblox developer. Build a complete, playable **pickleball game** in Roblox Studio using Luau. Give me every script, where it goes in the Explorer (ServerScriptService, ReplicatedStorage, StarterPlayerScripts, StarterGui, Workspace), and step-by-step setup instructions a beginner can follow.
 
+## Tools (MCP servers) to use
+You have MCP servers connected. Use them. Don't just write code and hope it works. If a server below isn't connected, tell me which one is missing and how to add it, then keep going with the rest.
+
+| MCP server | Use it for |
+|---|---|
+| **Roblox Studio MCP** (built into Studio: Assistant → Manage MCP Servers → "Enable Studio as MCP server") | Look through the open place, create Instances and scripts directly in Studio, run Luau, and **start playtests to check each stage yourself**. This is the main tool. |
+| **Blender MCP** (`ahujasid/blender-mcp`) | Model the court details, the net with posts, a paddle, a ball, benches, fences, a scoreboard stand, and a small stadium. Keep each mesh under Roblox's triangle limit, apply scale, and export to `.fbx`/`.obj` for import. |
+| **Meshy MCP** (`meshy-dev/meshy-mcp-server`) | Generate hero props or characters from text or images (a mascot or crowd NPCs, for example), retexture paddles for the shop, and auto-rig/animate the NPC opponent. Then clean the result up in Blender. |
+| **Higgsfield MCP** (`https://mcp.higgsfield.ai/mcp`) | Generate the game icon, thumbnails, a promo trailer, UI art (logo, shop item icons, the win-screen background), and court or ad-board textures. |
+| **ElevenLabs MCP** (`elevenlabs/elevenlabs-mcp`) | Make the sound effects (paddle "pop", ball bounce, net hit, crowd cheer, whistle), background music, and a referee voice for score callouts ("four, two, one"). |
+| **Roblox Open Cloud** (API key with asset upload permission, or an MCP that wraps it) | Upload the generated meshes, images, and audio as Roblox assets and get back `rbxassetid://` IDs to put in the scripts. If this isn't available, give me a list of files to upload by hand in Studio. |
+
+Workflow for every asset: **generate (Meshy/Higgsfield/ElevenLabs) → clean up or optimize (Blender) → upload (Open Cloud or by hand) → insert and wire it up in Studio (Roblox Studio MCP) → playtest (Roblox Studio MCP)**. Keep a `ASSETS.md` list of every asset with its source prompt and asset ID.
+
+Rules for using the tools:
+- Use a consistent art style for everything: clean, bright, slightly stylized sports look, with a teal court and orange accents.
+- Stay within Roblox limits: meshes at or below 20k triangles, textures at or below 1024×1024, and audio short enough to pass moderation. Don't generate anything copyrighted, and no real brands or logos.
+- After each build stage, use the Studio MCP to playtest and read the Output window, and fix errors before moving on.
+
 ## Core gameplay
 - **Court:** Regulation-proportioned pickleball court (20 × 44 ft, scaled to studs, e.g. 1 ft ≈ 1 stud × 1.5). Include baselines, sidelines, centerline, the 7-ft **non-volley zone ("kitchen")** on both sides, and a net 36 in high at the sidelines and 34 in at the center. Build it from Parts in code or give exact Part sizes/positions.
 - **Modes:** 1v1 (singles) and 2v2 (doubles). Players join a match by stepping on a pad next to the court; the match starts when enough players are ready.
